@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+
+        unordered_map<int, int> loc; //hash table
+
+        vector<int> ans;
+
+        //first record where every value is
+        for (int i = 0; i < nums.size(); i++){
+            loc[nums[i]] = i; 
+        }
+
+         for (int i = 0; i < nums.size(); i++){
+            int comp = target - nums[i];
+            if (loc.count(comp)){
+
+                
+                if (i != loc[comp]){
+                    ans.push_back(i);
+                    ans.push_back(loc[comp]);
+                    return ans;
+                }
+            }
+         }
+
+         return ans;
+        }
+        
+};
