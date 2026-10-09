@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+
+        unordered_map<char, int> seens; 
+
+        unordered_map<char, int> seent; 
+        
+        for (char c : s){
+            seens[c]++; 
+        }
+
+        for (char c : t){
+            seent[c]++; 
+        }
+
+        vector<char> alphabet;
+         for (char c = 'a'; c <= 'z'; c++) {
+               alphabet.push_back(c);
+        }
+
+        for (int i = 0; i < alphabet.size(); i++){
+            cout << alphabet[i] << endl; 
+            if ((seent[alphabet[i]]) != (seens[alphabet[i]])){
+                return false;
+            }
+
+        }
+
+        return true; 
+
+    }
+};
