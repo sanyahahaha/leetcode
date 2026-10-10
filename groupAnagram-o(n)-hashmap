@@ -1,0 +1,42 @@
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+
+    unordered_map<string, vector<string>> ana; 
+    for (string w: strs){
+
+        string currCode = ""; 
+        vector<int> seen(26, 0); // 26 keys all with value 0 
+
+
+        cout << " " << w << endl;  //current word 
+
+       for (char c : w) {
+                seen[c - 'a']++;       // computer stores 'a' as 97 
+        }
+
+    
+        for (int i = 0; i < 26; i ++){
+     //       cout << seen[i] << endl;
+            currCode += to_string(seen[i]); 
+            currCode+=","; //bc theres can 10+ of one digit. 
+
+        }
+       // cout << currCode << endl; 
+
+        ana[currCode].push_back(w); 
+    }
+
+    vector<vector<string>> ans; 
+
+    for (auto& p : ana) { // auto p does first key 
+     //   cout << p.first << " "  << endl;   
+        ans.push_back(p.second);
+
+    }
+     return ans;
+
+       
+        
+    }
+};
