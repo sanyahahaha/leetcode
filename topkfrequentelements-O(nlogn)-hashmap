@@ -1,0 +1,59 @@
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+
+        unordered_map<int, int> seen;
+        unordered_map<int, vector<int>> reverse; //have to consider overwritten vals
+
+        set<int, greater<int>> s;  //ordered set allowing duplicated that goes max to min
+
+        for (int i = 0; i < nums.size(); i++){
+            seen[nums[i]]++; 
+        }
+
+        for (auto& x: seen)
+        {
+            cout << " x: " << x.first << " val: " << x.second  << endl;
+            s.insert(x.second);
+
+            reverse[x.second].push_back(x.first); //adding reverse with dups
+        }
+
+
+        
+
+
+        cout << "" << endl;
+
+        for (int c: s){ //prints values max to min
+            cout << c << endl;
+            
+         }
+
+
+
+        vector<int> ans; 
+
+        int count = 0; 
+        for (int c: s){
+            for (int num: reverse[c]){
+                cout << " c: " << c << " num: " << num << endl;
+                ans.push_back(num); 
+                count++; 
+                if (count >= k){
+                    break; 
+                }
+
+            }
+            if (count >= k){
+                    break; 
+                }
+
+        }
+        
+
+        return ans; 
+        
+        
+    }
+};
