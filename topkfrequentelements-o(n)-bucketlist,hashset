@@ -1,0 +1,50 @@
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        
+
+
+         unordered_map<int, int> seen;
+
+         int maxReverseSize = nums.size() + 1; //max n, doing n+! bc im starting frequency at 1, not 0
+
+         for (int i = 0; i < nums.size(); i++){
+            seen[nums[i]]++; 
+        
+        }
+
+        vector<vector<int>> reverse(maxReverseSize); 
+
+        for (auto& x : seen){
+            reverse[x.second].push_back(x.first); 
+        }
+
+
+       
+    
+
+       vector<int> ans; 
+       int count = 0; 
+
+        for (int i = maxReverseSize - 1; i > 0; i--){ //where i is frequency
+        //    cout << i << endl;
+            for (int num: reverse[i]){
+                ans.push_back(num);
+                count++; 
+                if (count >= k){
+                    break;
+                }
+            }
+            if (count >= k){
+                    break;
+                }
+        }
+
+
+    
+
+        return ans; 
+        
+        
+    }
+};
