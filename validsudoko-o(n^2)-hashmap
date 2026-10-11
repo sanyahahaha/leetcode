@@ -1,0 +1,81 @@
+class Solution {
+public:
+    bool isValidSudoku(vector<vector<char>>& board) {
+
+       // board[0][1] = '5'; 
+        
+
+        unordered_map<int, vector<char>> seen;  //for rows only 
+        unordered_map<int, vector<char>> col; //for col only 
+        unordered_map<int, vector<char>> box; 
+
+        
+
+       for (int k = 0; k < 9; k++) {
+            seen[k] = {};   // creates an empty list for key k
+            col[k] = {};
+            box[k] = {}; 
+
+        }
+
+        for (int i = 0; i < 9; i++){ // row 
+            string rowCode = ""; 
+            string colCode = ""; 
+            for (int j = 0; j < 9; j++){ //col
+                //cout << i << " " << j << " " << board[i][j] << endl; //printing by row
+              //  cout << j << " " << i << " " << board[j][i] << endl; //printing for col? 
+
+                //determining box placement
+                int boxNum = ((i/3)*3) + (j/3);  
+
+                if (board[i][j] != '.'){ //box
+                     if (find(box[boxNum].begin(), box[boxNum].end(), (board[i][j])) != box[boxNum].end()) {
+                        return false;
+                     }
+
+                    else{
+                        box[boxNum].push_back(board[i][j]);  
+                    }
+
+                }
+
+
+                if (board[i][j] != '.'){ //row
+                    rowCode += board[i][j]; 
+ 
+                    if (find(seen[i].begin(), seen[i].end(), (board[i][j])) != seen[i].end()) {
+                    // key i's list contains (board[i][j])
+
+                      //  cout << "this value is a duplicate in the same row " << board[i][j] << endl;
+                        return false; 
+                    }
+                    else{
+                        seen[i].push_back(board[i][j]);  
+
+                      //  cout << " row i: " << i << " does not contain duplicate value: " << board[i][j] << endl; 
+                    }
+
+                }
+                if (board[j][i] != '.'){ //col
+                    colCode += board[j][i]; 
+                    if (find(col[i].begin(), col[i].end(), (board[j][i])) != col[i].end()) {
+
+                  //   cout << "this value is a duplicate in the same col " << board[i][j] << endl;
+                        return false; 
+                    }
+
+                    else{
+                        col[i].push_back(board[j][i]);  
+
+                    //    cout << " col j: " << j << " does not contain duplicate value: " << board[j][i] << endl; 
+                    }
+
+                }
+
+            }
+        //    cout << " new row " << rowCode << endl;
+        }
+
+        return true; 
+    }
+};
