@@ -1,0 +1,47 @@
+class Solution {
+public:
+    bool isPalindrome(string s) {
+
+
+       
+        
+        string result = "";
+        for (char c: s){
+            if (isalnum(c)){
+                result += c; 
+            }
+        }
+
+
+        for (auto& c : result){
+            c = tolower(c);
+        }
+       // cout << result << endl;
+
+        if (result.size() == 1){
+            return true; 
+        }
+
+        bool val = true; 
+
+        int left = 0;
+        int right = result.size() - 1; 
+
+         while (left < right){
+            if (result[left] != result[right]){
+
+                //    cout << result[left] << " does not equal " << result[right] << " at index " << left << " " << right << endl; 
+                return false;
+            }
+            left++;
+            right--; 
+            }
+        
+
+
+
+      //  cout << result << endl;
+        
+        return true;
+    }
+};
