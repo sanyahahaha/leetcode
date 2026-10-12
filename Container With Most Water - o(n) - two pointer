@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        
+        int maxA = -1; 
+        int left = 0;
+        int right = height.size() - 1;
+        while (left < right){
+            int area = min(height[left], height[right]) * (right - left);
+            maxA = max(area, maxA); 
+           // cout << area << left << right << height[left] << height[right] << endl;
+           // cout << area << endl;
+
+            if (height[right] >= height[left]){ //left one is limiting, try to find larger height
+                left++;
+            }
+            else{
+                right--; 
+            }
+
+        }
+     
+        
+
+        return maxA;
+        
+    }
+};
