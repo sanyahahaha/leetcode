@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        
+        if (nums.empty()) return 0; //for empty set edge case
+        unordered_set<int> vals; 
+        
+
+
+
+        for (int i = 0; i < nums.size(); i++){
+            vals.insert(nums[i]);
+        }
+       
+        
+        int longest = -1; 
+        for (auto& c: vals){
+
+            if (!vals.count(c-1)){ //its a left hand endpoint
+              // cout << c << " is a left hand endpoint" << endl; 
+                int length = 1;
+                while (vals.count(c+length)){
+                    length++;
+                }
+                longest = max(longest, length); 
+
+            }
+           // cout << c << endl;
+        }
+
+        return longest; 
+    }
+};
