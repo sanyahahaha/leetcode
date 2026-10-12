@@ -1,0 +1,50 @@
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        
+        if (nums.empty()) return 0; //for empty set edge case
+        sort(nums.begin(), nums.end());
+        nums.insert(nums.begin(), (nums[0]-1)); 
+
+
+        unordered_map<int, int> block; 
+
+
+         int currBlock = 0; 
+
+        for (int i = 1; i < nums.size(); i++){
+            int prev = nums[i-1]; 
+
+         //   cout << prev << " current value: " << nums[i] << endl;
+         
+            if (((nums[i] - prev) == 1) || (nums[i] - prev) == 0){ //apart of the cons
+
+                if (((nums[i] - prev) == 1)){
+                    block[currBlock] ++; 
+                }
+                
+               // cout <<  " " << endl;
+              //  cout << " currBlock " << currBlock << " val " << block[currBlock] << endl; 
+            }
+            else{ //not consecutive
+                currBlock ++; 
+                block[currBlock] ++; 
+
+              //  cout << " " << endl;
+              //  cout << "new sec of block " << currBlock << " with value: " << block[currBlock] << endl;
+            }
+           // cout << c << endl; 
+        }
+
+
+        int maxAns = -1; 
+        for (auto& c: block){
+            if (c.second > maxAns){
+                maxAns = c.second; 
+            }
+        }
+        
+
+        return maxAns; 
+    }
+};
