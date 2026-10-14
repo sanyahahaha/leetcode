@@ -1,0 +1,35 @@
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+       // cout << matrix[0][0] << endl; 
+
+        int lowC = 0;
+        int col = matrix[0].size(); 
+        int row = matrix.size();
+        int highC = (col * row) - 1;
+
+        while (lowC <= highC){
+            int midC = (lowC + highC) / 2; //4
+            int midi = midC / col;
+            int midj = midC % col; 
+            if (matrix[midi][midj] == target){ //val found
+                return true; 
+            }
+            else if (matrix[midi][midj] < target){ //move low point up 
+                lowC = midC + 1; //count
+
+            }
+            else{
+                highC = midC - 1; 
+            }
+
+
+        }
+
+
+      
+
+
+        return false; 
+    }
+};
