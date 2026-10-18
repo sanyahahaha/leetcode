@@ -1,0 +1,30 @@
+class Solution {
+public:
+    void rotate(vector<vector<int>>& matrix) {
+
+        int size = matrix.size(); 
+
+
+        //transpose (row becomes col)
+        for (int i = 0; i < size; i++){
+            for (int j = 0; j < size; j++){
+                if ((i != j) && (j > i)){ //not the diagonal 
+                    swap(matrix[i][j], matrix[j][i]); 
+                }
+            }
+        
+        }
+
+        //reverse (flip each row)
+        for (int i = 0; i < size; i++){
+            reverse(matrix[i].begin(), matrix[i].end()); 
+        }
+
+    //    cout << matrix[0] << endl;
+
+        
+
+        
+        
+    }
+};
