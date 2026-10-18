@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        //profit would be max (curr + next) - window of 2 
+
+        int maxProfit = INT_MIN;
+        int currProf = 0; 
+        int prevProf = -1; 
+
+        int left = 0; //buy day 
+         
+
+        for (int right = 0; right < prices.size(); right++){
+            
+            while (prices[left] > prices[right]){ //window is bad, deceasing profit. so move left up
+                left++; 
+            }
+
+            //now the window is good. 
+            
+            currProf = prices[right] - prices[left]; 
+            if (currProf > maxProfit){ 
+                maxProfit = currProf; 
+
+            }
+            
+        }
+
+        return maxProfit; 
+
+
+
+    }
+};
