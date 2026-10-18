@@ -1,0 +1,69 @@
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+
+        int mini = 0;
+        int minj = 0;
+
+        int maxi = matrix.size() - 1; 
+        int maxj = matrix[0].size() - 1; 
+
+
+        vector<int> ans; 
+
+        while ((minj <= maxj) && (mini <= maxi)){
+
+
+        //right 
+        if (mini <= maxi){
+            for (int j = minj; j <= maxj; j++){ // 0 1 2 3  
+            ans.push_back(matrix[mini][j]); 
+                
+        }
+        }
+        mini ++; 
+
+
+
+        //down
+
+        if (minj <= maxj){
+            for (int i = mini; i <= maxi; i++){ // 1 2 3 *change bottom
+               ans.push_back(matrix[i][maxj]) ;  //j should be max j 
+               
+        }  
+        }
+        maxj--; 
+
+
+        //left
+
+        if (maxi >= mini){
+            for (int j = maxj; j >= minj; j-- ){
+            ans.push_back(matrix[maxi][j]); //i = 3
+           
+        }
+        }
+
+        maxi--; 
+
+
+        //up
+
+        if (maxj >= minj){
+            for (int i = maxi; i >= mini; i--){
+            ans.push_back(matrix[i][minj]); 
+    
+        }
+
+
+        }
+        
+        minj++; 
+
+        }
+
+        return ans; 
+        
+    }
+};
