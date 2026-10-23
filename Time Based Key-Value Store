@@ -1,0 +1,54 @@
+class TimeMap {
+
+
+private:
+    unordered_map<string, vector<pair<int, string>>> store; 
+public:
+    TimeMap() {
+        
+    }
+    
+    void set(string key, string value, int timestamp) {
+
+
+        store[key].push_back({timestamp, value}); 
+        
+    }
+    
+    string get(string key, int timestamp) {
+
+
+        vector<pair<int, string>>& v = store[key]; //& makes u refer to oroginal instead of creating new copy, reduces time complexity 
+
+
+        int left = 0;
+        int right = v.size() - 1;
+
+        string result;
+
+        while (left <= right){
+            int mid = (left + right ) / 2;
+            if (v[mid].first <= timestamp){
+                result = v[mid].second; 
+                left = mid + 1; //to make sure i get to the most recent low, keep checking 
+            }
+            else{
+                //too big, need to lower
+                right = mid - 1;
+            }
+            
+        }
+
+        return result; 
+
+    
+        
+    }
+};
+
+/**
+ * Your TimeMap object will be instantiated and called as such:
+ * TimeMap* obj = new TimeMap();
+ * obj->set(key,value,timestamp);
+ * string param_2 = obj->get(key,timestamp);
+ */
