@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int characterReplacement(string s, int k) {
+
+        int left = 0; 
+        int ans = INT_MIN; 
+        int count[26] = {0}; 
+        int maxc = 0;
+         
+     
+
+        for (int right = 0; right < s.size(); right++){
+            count[s[right] - 'A']++; //putting right into the window
+            int frq = 0;
+            for (int i = 0; i < 26; i++){
+                frq = max(count[i], frq); 
+            }
+            
+
+
+            while ((right - left + 1) - frq > k){ //this means window is bad
+                //must remove leftmost
+    
+                count[s[left] - 'A']--; 
+                left ++; 
+
+                frq = 0;                       //rescan
+                for (int i = 0; i < 26; i++) {
+                    frq = max(frq, count[i]);
+                }
+
+            }
+
+            //window is goods
+            maxc = (right - left + 1); 
+            ans = max(maxc, ans); 
+        }
+
+
+        return ans; 
+    }   
+};
