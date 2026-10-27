@@ -1,0 +1,59 @@
+class Solution {
+public:
+    string minWindow(string s, string t) {
+
+        int count[128] = {0};
+        for (int i = 0; i < t.size(); i++){
+            count[t[i]]++;
+        }
+
+        int window[128] = {0};
+        int left = 0; 
+        int ans = INT_MAX; 
+        int bestStart; 
+       
+
+
+        for (int right = 0; right < s.size(); right++){
+            //putting s character in the window 
+            window[s[right]] ++;
+
+            if ((right - left + 1) >= t.size()) { //s is long enough to be checked 
+
+            bool check = true;
+            for (int i = 0; i < 128; i++){
+                if (count[i] > window[i]) check = false;
+            }
+
+            while (check) {
+                // record best (save left and length)
+                if ((right - left + 1) < ans){ //to get min ans 
+                        ans = right - left + 1; 
+                        bestStart = left;
+                    }
+
+
+                window[s[left]]--;
+                left++;
+
+               
+                 check = true;
+                for (int i = 0; i < 128; i++){
+                  if (count[i] > window[i]) check = false;
+            }
+            }
+
+
+            }
+        
+        }
+
+
+        if (ans == INT_MAX){
+            return "";
+        }
+        return s.substr(bestStart, ans); 
+
+        
+    }
+};
