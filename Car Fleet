@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int carFleet(int target, vector<int>& position, vector<int>& speed) {
+
+        vector<pair<int, int>> c; 
+
+        for (int i = 0; i < position.size(); i++){
+            c.push_back({position[i], speed[i]});
+        }
+        sort(c.rbegin(), c.rend()); //maxpos to minpos
+
+        stack<double> time; 
+
+
+        for (int i = 0; i < c.size(); i++){
+            double tt = (double(target - c[i].first) / c[i].second); 
+
+            if ((time.empty()) || tt > time.top()){
+                time.push(tt);
+            }
+            
+        }
+
+
+        return time.size(); 
+    }
+};
+
+
+
