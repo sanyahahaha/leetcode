@@ -1,0 +1,75 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    void reorderList(ListNode* head) {
+
+        ListNode* prev = nullptr; 
+        ListNode* curr = head; 
+
+
+
+        ListNode* slow = head; 
+        ListNode* fast = head->next; 
+
+        while (fast != nullptr && fast->next != nullptr){
+            slow = slow->next;  //moves one step
+            fast = fast->next->next; //moves two steps 
+        }
+
+
+        ListNode* l2 = slow->next; 
+
+        slow->next = nullptr; //so now l1 goes to nullptr halfway, splitting it 
+
+        //need to reverse l2 
+        ListNode* prev1 = nullptr; 
+        ListNode* curr1 = l2; 
+
+        while (curr1 != nullptr){
+            ListNode* nextNode = curr1->next; //saving next node 
+            curr1->next = prev1; //swithc direciton of the arrow to point to prev
+            prev1 = curr1; 
+            curr1 = nextNode; 
+        }
+
+        l2 = prev1; //last element of the original lis tbut it is the first digitof the reversed l2 list 
+
+
+        //now merge the 2 lists
+         ListNode* first = head; 
+
+         while (first != nullptr && l2 != nullptr){
+            //nodes for next round
+             ListNode* tmp1 = first->next; //points to next in l1
+             ListNode* tmp2 = l2->next; //points to next in l2 
+
+            //redirecting current 
+             first->next = l2; // changes to point to other list (but not the text one)
+             l2->next = tmp1;  
+
+             //moving it up to future node
+             first = tmp1;
+             l2 = tmp2; 
+
+         }
+
+
+
+
+    
+
+
+        
+    }
+};
+
+
