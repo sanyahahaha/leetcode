@@ -1,0 +1,38 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+       
+
+        ListNode* curr = head; 
+
+        unordered_set<ListNode*> seen; 
+        
+        while(curr != nullptr){
+
+            if(seen.count(curr)){
+                return true; 
+            }
+            seen.insert(curr); 
+
+            ListNode* nextNode = curr->next; //this holds the node YOUR arrow points to.... where my arrow points
+            curr = nextNode; //where my finger points 
+
+            
+
+        }
+
+        
+
+
+    
+        return false; 
+    }
+};
