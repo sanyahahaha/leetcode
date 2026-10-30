@@ -1,0 +1,93 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+
+        ListNode* curr1 = l1; 
+        int l1c = 0; 
+        ListNode* tail1 = nullptr;
+
+        ListNode* curr2 = l2; 
+        int l2c = 0; 
+        ListNode* tail2 = nullptr;
+
+
+        while (curr1 != nullptr ){
+            tail1 = curr1;     
+            curr1 = curr1->next; 
+            l1c++; 
+
+
+        }
+
+        while (curr2 != nullptr){
+            tail2 = curr2;
+            curr2 = curr2->next;  
+            l2c++; 
+        }
+
+        int diff = abs(l2c - l1c); 
+
+
+        ListNode* head = nullptr; 
+        for (int i = 0; i < diff; i++){ //creates lsit of diffc number of 0s
+            head = new ListNode(0, head); 
+        }
+
+        if (l2c > l1c ){
+            tail1->next = head; 
+        }
+        else if (l1c > l2c){
+            tail2->next = head; 
+        }
+
+
+
+        int rem = 0; 
+        ListNode* n1curr = l1; 
+        ListNode* n2curr = l2; 
+        ListNode* last = nullptr; 
+        
+
+        while (n1curr != nullptr){
+            ListNode* nextNode1 = n1curr->next;
+            ListNode* nextNode2 = n2curr->next;
+
+            int value = n1curr->val + n2curr->val + rem; 
+
+            if (value > 9){
+                rem = 1;
+                value = value - 10; 
+            }
+            else{
+                rem = 0; 
+            }
+
+            n1curr->val = value; 
+            last = n1curr; 
+
+            n1curr = nextNode1; 
+            n2curr = nextNode2; 
+
+
+
+        }
+
+        if (rem == 1){
+            last->next = new ListNode(1);
+        }
+
+    
+
+        return l1; 
+    }
+};
