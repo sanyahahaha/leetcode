@@ -1,0 +1,52 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+
+    int isBigger(TreeNode* root, int max){
+
+        int c = 0; 
+        if (root == nullptr){
+            return c; 
+        }
+        else if (root->val >= max){
+            max = root->val;
+            c++; 
+        }
+    
+        int nextL = isBigger(root->left, max);
+        int nextR = isBigger(root->right, max); 
+
+        return (nextL + nextR + c); 
+         
+    }
+
+
+
+    int goodNodes(TreeNode* root) {
+
+        if (root == nullptr){
+            return 0; 
+        }
+        int count = 1; 
+        int max = root->val; 
+
+
+        int leftV = isBigger(root->left, max);
+        int rightV = isBigger(root->right, max); 
+
+        return (leftV + rightV + count); 
+
+        
+        
+    }
+};
