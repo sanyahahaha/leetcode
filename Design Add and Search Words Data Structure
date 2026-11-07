@@ -1,0 +1,79 @@
+class WordDictionary {
+public:
+
+    WordDictionary* children[26]; 
+    bool isEnd; 
+
+    WordDictionary() {
+
+        for (int i = 0; i < 26; i++){
+            children[i] = nullptr; 
+        }
+        isEnd = false; 
+    
+
+    }
+    
+    void addWord(string word) { //basically the same as insert
+        WordDictionary* curr = this; 
+
+        for (char c: word){
+            int i = c - 'a'; 
+            if (curr->children[i] == nullptr){
+                curr->children[i] = new WordDictionary(); 
+            }
+            curr = curr->children[i]; 
+
+        }
+        curr->isEnd = true; 
+        
+    }
+    
+    bool search(string word) {
+        WordDictionary* curr = this; 
+        return (helper(curr, word, 0)); 
+    }
+
+
+
+    bool helper(WordDictionary* node, string& word, int pos){
+        if (pos == word.size()){ //check if its at end
+            return node->isEnd; 
+            
+        }
+
+        char c = word[pos];
+        if (c != '.'){
+            int i = c - 'a'; 
+            if (node->children[i] == nullptr){
+                return false; 
+            }
+            return helper(node->children[i], word, pos + 1); //check next, but through the own function
+
+        }
+        //if its .
+        for (int i = 0; i < 26; i++){
+            if (node->children[i] != nullptr){ //testing the alphabet, see which one has open door
+                //this has an open door, but i wanna check if it fits the rest
+                if(helper(node->children[i], word, pos+1)){
+                    return true; 
+                }
+
+
+
+            }
+        }
+        return false; 
+
+
+    }
+};
+
+
+
+/**
+ * Your WordDictionary object will be instantiated and called as such:
+ * WordDictionary* obj = new WordDictionary();
+ * obj->addWord(word);
+ * bool param_2 = obj->search(word);
+ */
