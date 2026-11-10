@@ -1,0 +1,40 @@
+class Solution {
+public:
+    vector<vector<int>> diagonalSort(vector<vector<int>>& mat) {
+
+       
+
+        int rows = mat.size(); //3
+        int cols = mat[0].size(); //4
+        vector<vector<int>> dia(rows + cols - 1);  //amoung of diagonals 
+
+        for (int i = 0; i < rows; i++){
+            for (int j = 0; j < cols; j++){
+                int ind = i - j + cols - 1; //shifting i-j indexes to be positiven 
+                dia[ind].push_back(mat[i][j]); 
+            }
+        }
+
+        for (int i = 0; i < dia.size(); i++){
+            sort(dia[i].rbegin(), dia[i].rend());  //largest to smallest
+        }
+
+
+
+        for (int i = 0; i < rows; i++){
+            for (int j = 0; j < cols; j++){
+                int d = i - j + cols - 1; 
+                mat[i][j] = dia[d].back(); //back is the smallest
+                dia[d].pop_back(); 
+            }
+        }
+
+        return mat; 
+
+
+        
+    }
+};
+
+
+
