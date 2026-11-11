@@ -1,0 +1,59 @@
+class Solution {
+public:
+    int leastInterval(vector<char>& tasks, int n) {
+
+        int freq[26] = {0}; 
+        for (int i = 0; i < tasks.size(); i++){ //track count of each letter
+            int a = tasks[i] - 'A';
+            freq[a]++; 
+        }
+
+
+        //put frequency into a max heap 
+        priority_queue<int> maxH; 
+        for (int i = 0; i < 26; i++){
+            if (freq[i] != 0){
+                maxH.push(freq[i]); 
+            }
+        }
+
+        int time = 0; 
+        queue<pair<int,int>> q; 
+
+        //loop through the heap
+        while (!maxH.empty() ||!q.empty()){
+            time++; 
+
+    
+            if (!maxH.empty()){
+                int curr = maxH.top() - 1; //one less bc im gonna insert this into queue
+                maxH.pop(); //removing top
+                if (curr > 0){ //add to queue along its available time
+                    q.push({curr, time + n});
+                }
+            }
+
+            //check whether the top 
+            if (!q.empty()){
+                int curr1 = q.front().first;
+                int curr2 = q.front().second; 
+                if (time == curr2){
+                    //put back in heap
+                    maxH.push(curr1);
+                    q.pop(); 
+                }
+               
+
+
+            }
+        
+
+        }
+
+
+        
+
+        return time; 
+        
+    }
+};
