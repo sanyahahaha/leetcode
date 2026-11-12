@@ -1,0 +1,34 @@
+class Solution {
+public:
+    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
+
+        intervals.push_back(newInterval);
+
+        sort(intervals.begin(), intervals.end());
+        vector<vector<int>> res;
+        
+        for (auto& curr: intervals){
+
+            if (res.empty() || curr[0] > res.back()[1]){
+                res.push_back(curr);
+            }
+            else{
+                res.back()[1] = max(res.back()[1], curr[1]); 
+            }
+
+            
+        }
+
+        return res; 
+        
+
+
+
+
+
+
+
+
+        
+    }
+};
