@@ -1,0 +1,36 @@
+class Solution {
+public:
+    vector<int> partitionLabels(string s) {
+
+
+        unordered_map<char, int> lastind; 
+
+        vector<int> ans; 
+
+        for (int i = 0; i < s.size(); i++){
+           lastind[s[i]] = i; 
+        }
+        int start = 0; 
+        int max = lastind[s[0]]; 
+        for (int i = 0; i < s.size(); i++){
+            if (i > max){ //not valid 
+                ans.push_back(max - start + 1); 
+                max = lastind[s[i]]; 
+                start = i; 
+
+            }
+            else if (lastind[s[i]] > max){ //update 
+    
+                max = lastind[s[i]]; 
+             
+
+            }
+            
+
+        }
+
+        ans.push_back(max - start + 1);
+
+        return ans; 
+    }   
+};
