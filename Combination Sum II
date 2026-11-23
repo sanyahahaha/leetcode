@@ -1,0 +1,59 @@
+class Solution {
+public:
+
+    vector<int> path;
+    vector<vector<int>> ans; 
+    int sum = 0; 
+
+    void backtracking(vector<int>& candidates, int target, int i){
+        if (sum > target){
+            //terminate
+            return; 
+        }
+        if (sum == target){
+            //an ans found but i need to check if its unique 
+            ans.push_back(path);
+            return; 
+        }
+        if (i >= candidates.size()){
+            return; 
+        }
+
+        //choice 1. add next val
+        path.push_back(candidates[i]); //make decision 
+        sum += candidates[i]; 
+        //go deeper dfs
+        backtracking(candidates, target, i+ 1); 
+        //undo step
+        sum -= candidates[i];
+        path.pop_back(); 
+
+        //choice 2, skip the duplicates 
+        int j = i +1; 
+
+        while (j < candidates.size() && candidates[j] == candidates[i]){
+            j++; 
+            
+        }
+
+        backtracking(candidates, target, j); 
+
+
+    }
+
+
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+
+         sort(candidates.begin(), candidates.end()); 
+
+
+
+        backtracking(candidates, target, 0);
+
+        return ans; 
+    }
+
+    
+
+
+};
