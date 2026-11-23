@@ -1,0 +1,48 @@
+class Solution {
+public:
+
+    vector<int> path;
+    vector<vector<int>> ans; 
+    int total = 0; 
+
+    void backtrack(vector<int>& candidates, int target, int i ){
+        // backtrack conditiion is that if the sum < target continue 
+        if (total > target){
+            //i wanna terminate 
+            return; 
+         }
+        //if its equal, add to ans 
+        if (total == target){
+             ans.push_back(path);
+            return; 
+        }
+
+        if (i == candidates.size()){
+            return; //at end, nothing worked so just return 
+        }
+       
+
+       //choice 1: add current value 
+       path.push_back(candidates[i]); //make chocie 
+       total += candidates[i]; 
+       backtrack(candidates, target, i); //go deeper. but im adding the same value 
+       total -= candidates[i];  //undo p1
+       path.pop_back(); //undo p2 
+       
+
+
+       //choice 2: skip adding current value, move onto next value 
+        backtrack(candidates,target, i+1); 
+
+    }
+
+
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        backtrack(candidates, target, 0);
+
+        return ans; 
+
+
+
+    }
+};
