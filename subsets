@@ -1,0 +1,38 @@
+class Solution {
+public:
+
+
+    vector<vector<int>> ans;
+    vector<int> path;
+
+
+    void backtrack(vector<int>& nums, int i){
+
+        if (i == nums.size()){ //basecase. stop bc ive gotten all numbers placed 
+            ans.push_back(path); 
+            return; 
+        }
+
+        //i have two choices. 1. include next number 2. dont 
+
+        //choice 1, add nums[i]
+        path.push_back(nums[i]);  //make choice
+        backtrack(nums, i+1); // go deeper (dfs)
+        path.pop_back();       //undo step 
+
+
+        //choice 2, skip nums[i]. move onto next number 
+        backtrack(nums, i+1);
+
+
+    }
+    vector<vector<int>> subsets(vector<int>& nums) {
+        backtrack(nums, 0); 
+
+
+        return ans; 
+
+
+        
+    }
+};
