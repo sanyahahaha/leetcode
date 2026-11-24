@@ -1,0 +1,54 @@
+class Solution {
+public:
+
+    vector<int> path;
+    vector<vector<int>> ans; 
+
+    //used in path 
+    vector<bool> used; 
+
+
+
+    void backtracking(vector<int>& nums, int i){
+        
+        if (path.size() == nums.size()){
+            ans.push_back(path); 
+            return; 
+        } 
+        
+        // my choice is which one to add to path (given i havnt used it before)
+        for (int i = 0; i < nums.size(); i++){
+            if (used[i] == false){ //this hasnt been added yet, i have to add it (so i use all of the numbers)
+                path.push_back(nums[i]);  //choice made p1
+                used[i] = true;  //choice made p2
+                backtracking(nums, i+1);  //go deeper
+                used[i] = false; //undo p1
+                path.pop_back();  //undo p2
+
+
+            }
+            
+
+
+        }
+        
+
+
+
+    }
+
+    vector<vector<int>> permute(vector<int>& nums) {
+
+        for (int i = 0; i < nums.size(); i++){
+            used.push_back(false); 
+
+        }
+
+        backtracking(nums, 0); 
+
+        return ans; 
+
+
+        
+    }
+};
