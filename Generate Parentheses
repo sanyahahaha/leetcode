@@ -1,0 +1,71 @@
+class Solution {
+public:
+
+
+    vector<string> ans; 
+    string path; 
+    int lp = 0; 
+    int rp = 0; 
+
+
+    void backtracking(int n ){
+
+        if (lp == n && rp == n){ 
+            ans.push_back(path); 
+            return;  
+        }
+
+
+
+        //choice 1, add a (.
+        if (rp <= lp && lp < n){
+            path.push_back('('); 
+            lp++; 
+            backtracking(n);
+            lp--; 
+            path.pop_back(); 
+
+        }
+
+        //choice 2, add a )
+        if (rp < lp && rp < n){
+            path.push_back(')'); 
+            rp++; 
+            backtracking(n); 
+            rp--; 
+            path.pop_back(); 
+        }
+
+
+
+    }
+
+    vector<string> generateParenthesis(int n) {
+        backtracking(n); 
+
+        return ans; 
+        
+    }
+};
+
+
+
+/* 
+
+
+all ) have to be on the right of the ( 
+
+at any point along, u can never have more rp than lp 
+
+! (rp > lp)
+always rp <= lp
+
+
+
+()
+()
+()
+lp = 3
+rp 3
+
+*/ 
