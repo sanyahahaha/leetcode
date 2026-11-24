@@ -1,0 +1,54 @@
+class Solution {
+public:
+
+    vector<vector<int>> ans; 
+    vector<int> path; 
+
+    
+
+    void backtracking(vector<int>& nums, int i){
+
+        if (i == nums.size()){
+            ans.push_back(path);  //basecase 
+            return;  
+        }
+
+        //choice 1. add current value () IF it hasnt been used before 
+
+        path.push_back(nums[i]); 
+        backtracking(nums, i + 1); 
+
+        path.pop_back();
+        
+
+
+        
+
+
+        //choice 2: skip current nums and go to next that HASNT been used yet
+
+        int j = i + 1; 
+        while (j < nums.size() && nums[j] == nums[i]){
+            j++; 
+        }
+        backtracking(nums, j); 
+
+        
+
+
+
+
+    }
+
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+
+        sort(nums.begin(), nums.end()); 
+
+     
+
+        backtracking(nums, 0); 
+        return ans; 
+
+        
+    }
+};
