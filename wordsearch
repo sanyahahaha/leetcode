@@ -1,0 +1,78 @@
+class Solution {
+public:
+
+    int r = 0; 
+    int c = 0; 
+    string path; 
+    bool ans = false; 
+    vector<vector<bool>> used; 
+
+    void backtrack(vector<vector<char>>& board, string& word, int r, int c){
+        if (ans){
+            return; 
+        }
+        if (path.size( )== word.size()){
+            ans = true;
+            return ; 
+        }
+
+        if (r >= board.size() || c >= board[0].size() || r < 0 || c < 0){ //out of bounds 
+            return; 
+        }
+        if (board[r][c] != word[path.size()]){ //wrong letter 
+            return; 
+        }
+
+        //letter has alr been used. skip
+        if (used[r][c]){
+            return; 
+        }
+
+        
+        //correct letter and hasnt been used so add
+       
+        used[r][c] = true; 
+        path.push_back(board[r][c]); 
+
+        
+        
+
+        //check adjacent aka go deeper 
+        backtrack(board, word, r+1, c); 
+        backtrack(board, word, r-1, c); 
+        backtrack(board, word, r, c+1); 
+        backtrack(board, word, r, c-1); 
+
+    
+        //undo
+        
+        used[r][c] = false; 
+        path.pop_back(); 
+
+    }
+
+    bool exist(vector<vector<char>>& board, string word) {
+
+        for (int i = 0; i < board.size(); i++){
+            vector<bool> row; 
+            for (int j = 0; j < board[0].size(); j++){
+                row.push_back(false); 
+            }
+            used.push_back(row); 
+        }
+
+
+        for (int i = 0; i < board.size(); i++){
+            for (int j = 0; j < board[0].size(); j++){
+                backtrack(board, word, i, j); 
+                if (ans){
+                    return ans; 
+                }
+                
+      
+            }
+        }
+        return ans; 
+
+    }
+};
