@@ -1,0 +1,46 @@
+class Solution {
+public:
+
+    int robLine(vector<int>& nums){
+        vector<int> dp(nums.size());
+
+        dp[0] = nums[0];
+
+        if (nums.size() == 1){
+            return nums[0]; 
+        }
+        dp[1] = max(nums[1], nums[0]); 
+
+    
+
+        for (int i = 2; i < nums.size(); i++){
+            dp[i] = max(dp[i - 2] + nums[i], dp[i - 1] ); 
+        }
+
+
+        return dp[nums.size() - 1]; 
+        
+
+    }
+    int rob(vector<int>& nums) {
+
+        int n = nums.size(); 
+        if (n == 1){
+            return nums[0]; 
+        }
+
+       
+
+        //choice 1, rob first house and not the last house
+
+        vector<int> ch1(nums.begin(), nums.end() - 1); 
+        int x1 = robLine(ch1); 
+
+        //choice 2, dont rob first house, and rob last house 
+        vector<int> ch2(nums.begin() + 1, nums.end()); 
+        int x2 = robLine(ch2); 
+
+
+        return max(x1, x2); 
+    }
+};
